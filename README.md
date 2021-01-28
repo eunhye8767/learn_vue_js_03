@@ -33,19 +33,19 @@
 자바스크립트로 치면 아래와 같은 코드가 모듈이다.    
   - export 코드는 ES6의 Modules 문법을 사용했다.<br />
   문법 참고사이트: https://babeljs.io/docs/en/learn#modules
-```
-  // math.js  
-  function sum(a, b) {
+```javascript
+// math.js  
+function sum(a, b) {
   return a + b;
-  }
-  
-  function substract(a, b) {
+}
+
+function substract(a, b) {
   return a - b;
-  }
-  
-  const pi = 3.14;
-  
-  export { sum, substract, pi }
+}
+
+const pi = 3.14;
+
+export { sum, substract, pi }
 ```
 이 math.js 파일은 아래와 같이 3가지 기능을 갖고 있는 모듈이다.<br />
   1. 두 숫자의 합을 구하는 sum() 함수
@@ -65,7 +65,7 @@
 아래 그림과 같이 웹 애플리케이션을 구성하는 몇십, 몇백개의 자원들을 
 하나의 파일로 병합 및 압축 해주는 동작을 모듈 번들링이라고 한다.<br />
   - 빌드, 번들링, 변환 이 세 단어 모두 같은 의미이다
-![1-4-1](./_images/1-4-1.png)<br />
+  ![1-4-1](./_images/1-4-1.png)<br />
 
 <br /><br /><br />
 
@@ -80,61 +80,60 @@
 
 #### 2.1.2. 파일 단위의 자바스크립트 모듈 관리
 입문자 관점에서 고안된 자바스크립트는 아래와 같이 편리한 유효 범위를 갖고 있다.
-```
-  var a = 10;
-  console.log(a); // 10
+```javascript
+var a = 10;
+console.log(a); // 10
 
-  function logText() {
-    console.log(a); // 10
-  }
+function logText() {
+  console.log(a); // 10
+}
 ```
 자바스크립트의 변수 유효 범위는 기본적으로 전역 범위를 갖는다.<br />
 최대한 넓은 변수 범위를 갖기 때문에 어디에서도 접근하기가 편리하다.<br />
 그런데 이러한 장점이 실제로 웹 애플리케이션을 개발할 때는 아래와 같은 문제점으로 변한다.
+```html
+<!-- index.html -->
+<html>
+  <head>
+    <!-- ... -->
+  </head>
+  <body>
+    <!-- ... -->
+    <script src="./app.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>
 ```
-  <!-- index.html -->
-  <html>
-    <head>
-      <!-- ... -->
-    </head>
-    <body>
-      <!-- ... -->
-      <script src="./app.js"></script>
-      <script src="./main.js"></script>
-    </body>
-  </html>
-```
-```
-  // app.js
-  var num = 10;
-  function getNum() {
-    console.log(num);
-  }
-```
-```
-  // main.js
-  var num = 20;
-  function getNum() {
-    console.log(num);
-  }
+```javascript
+// app.js
+var num = 10;
+function getNum() {
+  console.log(num);
+}
+
+// main.js
+var num = 20;
+function getNum() {
+  console.log(num);
+}
 ```
 위와 같이 index.html에서 두 자바스크립트 파일을 로딩하여 사용한다고 적용하고<br />
 스크립트에 아래와 같이 코드를 실행하면 getNum() 값은 20.<br />
-```
-  <!-- index.html -->
-  <html>
-    <head>
-      <!-- ... -->
-    </head>
-    <body>
-      <!-- ... -->
-      <script src="./app.js"></script>
-      <script src="./main.js"></script>
-      <script>
-        getNum(); // 20
-      </script>
-    </body>
-  </html>
+```html
+<!-- index.html -->
+<html>
+  <head>
+    <!-- ... -->
+  </head>
+  <body>
+    <!-- ... -->
+    <script src="./app.js"></script>
+    <script src="./main.js"></script>
+    <script>
+      getNum(); // 20
+    </script>
+  </body>
+</html>
 ```
 app.js에서 선언한 num 변수는 main.js에서 다시 선언하고 20을 할당했기 때문이다.<br />
 이러한 문제점은 실제로 복잡한 애플리케이션을 개발할 때 발생하며, <br />
@@ -150,9 +149,9 @@ AMD, Common.js와 같은 라이브러리로 풀어왔다.
 <br />
 이외에도 웹 서비스를 개발하고 웹 서버에 배포할 때 아래와 같은 작업들을 한다
 
-  - HTML, CSS, JS 압축
-  - 이미지 압축
-  - CSS 전처리기 변환
+	- HTML, CSS, JS 압축
+	- 이미지 압축
+	- CSS 전처리기 변환
 
 이러한 일들을 자동화 해주는 도구들이 필요했다.<br />
 그래서 Grunt와 Gulp 같은 도구들이 등장했다.
@@ -167,20 +166,19 @@ AMD, Common.js와 같은 라이브러리로 풀어왔다.
 뿐만 아니라 초기 페이지 로딩 속도를 높이기 위해 <br />
 나중에 필요한 자원들은 나중에 요청하는 레이지 로딩(Lazy Loading)이 등장했다.<br />
 **웹팩은 기본적으로 필요한 자원은 미리 로딩하는게 아니라 그 때 그 때 요청하자는 철학을 갖고 있다**
-<br /><br />
+<br /><br /><br />
 
 ### 2.2. 웹팩으로 해결하려는 문제
 웹팩의 등장 배경에서도 살펴봤지만 웹팩에서 해결하고자 하는 기존의 4가지의 문제점이 있다
-  - 자바스크립트 변수 유효 범위
-  - 브라우저별 HTTP 요청 숫자의 제약
-  - 사용하지 않는 코드의 관리
-  - Dynamic Loading & Lazy Loading 미지원
+	- 자바스크립트 변수 유효 범위
+	- 브라우저별 HTTP 요청 숫자의 제약
+	- 사용하지 않는 코드의 관리
+	- Dynamic Loading & Lazy Loading 미지원
 <br />
 
 #### 2.2.1. 자바스크립트 변수 유효 범위 문제
 - 웹팩은 변수 유효 범위의 문제점을 ES6의 Modules 문법과 웹팩의 모듈 번들링으로 해결한다.
 - ES6의 Modules 문법 : https://babeljs.io/docs/en/learn#modules
-<br />
 
 #### 2.2.2. 브라우저별 HTTP 요청 숫자의 제약
 TCP 스펙에 따라 브라우저에서 한 번에 서버로 보낼 수 있는 HTTP 요청 숫자는 제약되어 있다.<br />
@@ -188,7 +186,7 @@ TCP 스펙에 따라 브라우저에서 한 번에 서버로 보낼 수 있는 H
 ![2-2-1](./_images/2-2-1.png)<br />
 HTTP 요청 숫자를 줄이는 것이 웹 애플리케이션의 성능을 높여줄 뿐만 아니라 
 사용자가 사이트를 조작하는 시간을 앞당겨 줄 수 있다.
-  - 클라이언트에서 서버에 HTTP 요청을 보내기 위해서는 먼저 TCP/IP가 연결되어야 한다
+	- 클라이언트에서 서버에 HTTP 요청을 보내기 위해서는 먼저 TCP/IP가 연결되어야 한다
 웹팩을 이용해 여러 개의 파일을 하나로 합치면 위와 같은 브라우저별 HTTP 요청 숫자 제약을 피할 수 있다.
 <br />
 
@@ -205,8 +203,7 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 
 ### 3.1. Node.js
 - Node.js는 브라우저 밖에서도 자바스크립트를 실행할 수 있는 환경을 의미한다.
-- Node.js가 나오기 전까지는 자바스크립트가 브라우저의 동작을 제어하는데 사용되었고 브라우저에서만 실행할 수 있었지만
-이제는 **Node.js로 자바스크립트를 브라우저 밖에서도 실행**할 수 있게 되었다.
+- Node.js가 나오기 전까지는 자바스크립트가 브라우저의 동작을 제어하는데 사용되었고 브라우저에서만 실행할 수 있었지만 이제는 **Node.js로 자바스크립트를 브라우저 밖에서도 실행**할 수 있게 되었다.
 - node.js 파일은 **LTS 버전으로 설치**
 <br />
 
@@ -216,6 +213,43 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 - npm은 자바스크립트 프로그래밍 언어를 위한 패키지 관리자<br />
 (자바스크립트 라이브러리를 관리해주는 도구)
 - NPM 사이트는 전세계 모든 자바스크립트 라이브러리(jQuery, tensorflow 등)들을 관리
-  - 공개저장소
-  - 검색해서 모든 자바스크립트 라이브러리를 확인할 수 있다
-![3-2-1](./_images/3-2-1.png)<br />
+	- 공개저장소
+	- 검색해서 모든 자바스크립트 라이브러리를 확인할 수 있다
+		![3-2-1](./_images/3-2-1.png)<br />
+<br />
+
+### 3.3. NPM 시작하기
+1. 터미널 창에서 node 버전과 npm 버전을 명령어를 입력하여 확인
+	```
+	node -v    // node 버전
+	npm -v     // npm 버전
+	```
+	![3-3-1](./_images/3-3-1.png)<br />
+	<br />
+2. powersell 로 되어 있을 경우, 해당 버전 확인이 안 되는 경우가 있다.<br />
+(https://github.com/eunhye8767/learn_vue_js_01 - 10.3번 참고)
+
+3. npm 폴더를 만들고 open in Terminal 클릭<br />
+	![3-3-2](./_images/3-3-2.png)<br />
+
+4. 터미널에서 경로가 해당 npm 폴더로 바뀐 것을 확인할 수 있다<br />
+	![3-3-3](./_images/3-3-3.png)<br />
+
+5. [ 터미널 ] npm init 명령어 실행
+<br />
+
+### 3.4. NPM 초기화 명령어 - init
+1. [ 터미널 ] npm init 명령어 실행
+2. 1번 영역 참고, package name(프로젝트 이름 등), version, decription 등 항목별로 입력하라는 메세지가 보여진다<br />2번 영역 참고, 입력한 값이 맞는 지 한 번더 명시해준다.<br />3번 영역 참고, 이대로 진행할 건지 마지막으로 물어본다.<br />
+	![3-4-1](./_images/3-4-1.png)<br />
+
+3. 물음에 답을 하면 생성한 npm 폴더 안에 package.json 파일이 생성되고 그 안에 내가 입력한 값(2번 영역)들이 기재되어 있다.<br />
+	![3-4-2](./_images/3-4-2.png)<br />
+	![3-4-3](./_images/3-4-3.png)<br />
+
+4. 생성된 package.json 파일을 삭제한다
+5. [ 터미널 ] npm init -y 명령어를 입력한다
+	- npm init -y 명령어는 package name, version 등 항목별로 입력하는 란을 기본값으로 지정한 후 자동으로 package.json 파일까지 생성한다.<br />
+	![3-4-4](./_images/3-4-4.png)<br />
+	<br />
+
