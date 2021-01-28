@@ -253,3 +253,18 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	![3-4-4](./_images/3-4-4.png)<br />
 	<br />
 
+### 3.5 NPM 설치 명령어 - install
+1. jquery 를 설치해본다
+2. [ 터미널 ] npm install jquery 명령어 입력
+	- 설치 명령어 : npm install *** 
+3. npm 폴더 안에 nodo_modules/jquery 폴더가 생성되었다<br />
+	![3-5-1](./_images/3-5-1.png)<br />
+4. 일반적으로 특정 라이브러리가 설치되었을 때에는 nodo_modulex 폴더 아래에 jquery 처럼 해당 폴더가 생성이 되고 그 폴더 아래에 파일들이 저장되어 있다
+	- 설치된 라이브러리 폴더 안에 dist 폴더 안에서 파일이 확인이 된다
+	- 설치 예시 : jquery/dist/jquery.js 
+		- jquery.js 파일을 열면 버전 등의 정보 코드들을 확인할 수 있다<br />
+			![3-5-2](./_images/3-5-2.png)<br />
+		- **npm/package.json** 파일에서 설치된 **jquery 버전도 확인**할 수 있다<br />
+			![3-5-3](./_images/3-5-3.png)<br />
+<br />
+
