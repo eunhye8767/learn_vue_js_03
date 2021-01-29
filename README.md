@@ -323,7 +323,7 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 2. 시스템에서 그 라이브러리를 제공하는 CLI, 명령어 인식 기능들을 활용하기 위해서 --global를 설치한다.
 <br />
 
-#### 4.4. 지역 설치와 전역(--global) 설치 비교 정리
+### 4.4. 지역 설치와 전역(--global) 설치 비교 정리
 - **NPM 지역 설치**
 	- NPM 초기화 명령어로 package.json 파일을 생성하고 나면 해당 프로젝트에서 사용할 자바스크립트 라이브러리를 설치하게 된다. 이때 명령어로는 아래와 같다.
 		```
@@ -349,3 +349,66 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	- 시스템 레벨의 폴더 경로에 저장이 된다. ([4.3. 참고](#43-전역으로-설치된-라이브러리-경로-확인))
 <br />
 
+### 4.5. 지역 설치 명령어 옵션 - --save-dev(-D)
+- NPM 지역 설치 옵션 2가지
+	- NPM 지역 설치에 자주 사용되는 2가지 옵션은 다음과 같다
+		```
+		npm install jquery --save-prod
+		npm install jquery --save-dev
+		```
+	- 위 명령어를 축약할 수 있다
+		```
+		npm i jquery
+		npm i jquery -D
+		```
+- **--save-dev 또는 -D 설치 옵션으로 명령어를 실행**했을 경우
+	1. vue 라이브러리를 예시로 설치한다
+		```
+		npm install vue --save-dev
+
+		// 축약형
+		npm i vue -D
+		```
+	2. node_modulex 폴더 아래에 vue 폴더가 생성된 것을 확인할 수 있다
+	3. npm/package.json 파일에서 devDependencies 객체에 vue가 추가된 것을 확인할 수 있다
+		![4-5-1](./_images/4-5-1.png)<br />
+<br />
+
+### 4.6. dependencies와 devDependencies의 차이점
+- **dependencies**
+	- npm install 또는 npm i 로 설치했을 때 dependenices에 추가가 된다
+	- 애플리케이션 로직(동작)을 구현하는 것에 연관이 있다 (= 화면의 로직과 직접적 연관)
+		- 예1) jquery : 화면의 DOM을 조작하는 유틸성 라이브러리
+		- 예2) jqeury-ui : 화면 DOM 동작을 도와주는 부가적인 라이브러리
+	- dependencies 적용될 라이브러리 : vue, react, angular, chart 등
+
+	<br />
+- **devDependencies**
+	- npm install --save-dev, npm install -D 로 설치했을 때 devDependencies에 추가가 된다<br />(install 은 i 로 축약 가능!!)
+	- **개발을 할 때 도움을 주는 개발용 라이브러리**, 개발 보조 라이브러리 
+	- devDependencies 적용될 라이브러리 : webpack, js-compression, sass 등
+<br />
+
+### 4.7. 개발용 라이브러리와 배포용 라이브러리 구분하기
+- **NPM 지역 설치를 할 때 해당 라이브러리가 배포용(dependencies)인지 개발용(devDependencies)인지 꼭 구분**해주어야 한다.
+	- 예를 들어, jqeury 와 같이 화면 로직과 직접적으로 관련된 라이브러리는 배포용으로 설치해야 한다.
+	- 설치된 배포용 라이브러리는 npm run build 로 빌드를 하면 최종 애플리케이션 코드 안에 포함된다.
+	```
+	// 배포용 라이브러리 설치
+	npm i jquery
+	```
+	```
+	// package.json
+	{
+	  "dependencies": {
+	    "jquery": "^3.4.1"
+		}
+	}
+	```
+- **설치된 개발용 라이브러리(devDependencies)는 빌드를 했을 때 애플리케이션에 포함되지 않는다.**
+	- 반대로, 배포용 라이브러리(dependencies)에 필요없는 라이브러리가 들어가면서 빌드시간이 오래 걸리는 경우가 발생한다. **배포용과 개발용 라이브러리를 구분해서 적용**해주어야 한다.
+- 예로, 라이브러리 [express](#https://www.npmjs.com/package/express) 를 봤을 때<br />Installation을 보면 npm install express 로 되어 있다. Installation 을 확인하여 설치하면 된다
+- 라이브러리 별 안내 가이드에 따라 해도 되지만,<br />서비스 내 로직, 애플리케이션을 구현할 때 화면 조작에 직접적인 영향이 없으면 devDependencies 에 적용해도 된다.
+<br />
+<br />
+<br />
