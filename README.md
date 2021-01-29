@@ -437,3 +437,61 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 			- 빌드, 번들링, 변환 이 세 단어 모두 같은 의미이다.
 <br />
 
+### 5.2. 튜토리얼 파트 1 - 웹팩 적용 전
+- 웹팩 맛보기 튜토리얼 :
+	- [참고URL](https://joshua1988.github.io/webpack-guide/getting-started.html)
+	- 웹팩을 가볍게 맛볼 수 있는 튜토리얼 진행
+	- 튜토리얼로 웹팩을 실행할 수 있는 개발환경을 구성하고 빌드 과정을 경험해 볼 수 있을 것
+<br />
+
+- **개발 환경 구성**
+	- Node.js LTS Version(버전 10이상)
+	- NPM 버전 6 이상
+<br />
+
+#### 5.2.1. 실습 절차 - 웹 페이지 자원 구성
+1. 새폴더를 만들고 만든 폴더 기준으로 터미널 창을 연다<br />
+	![5-2-1](./_images/5-2-1.png)<br />
+2. npm init -y 명령어 입력, package.json 파일 자동 생성
+3. 대부분의 프로젝트의 기본적으로 npm이 동반된다. npm init 또는 package.json 을 설정한다.
+4. webpack, webpack-cli 를 설치한다 
+	- -D 또는 --save-dev 옵션 설정으로 개발용 라이브러리로 설치한다
+	- 개발용 라이브러리는 빌드 시 애플리케이션에 적용되지 않는다
+	```
+	npm i webpack webpack-cli -D
+	```
+5. webpack, webpack-cli 가 설치가 완료되면 package.json 파일 - devDependencies 객체에 추가된 것을 확인할 수 있다<br />
+	![5-2-2](./_images/5-2-2.png)<br />
+6. lodash 도 설치한다 (배포용 라이브러리)
+	- 설치가 완료되면 package.json 파일 - dependencies 항목에 추가된 것을 확인할 수 있다
+	- lodash 라이브러리 : 자바스크립트 유틸리티 라이브러리
+	```
+	npm i lodash
+	```
+7. (새로 만든 폴더)프로젝트 루트 레벨에 index.html 파일을 만들고 아래 코드를 적용한다
+	```html
+	<html>
+	  <head>
+	    <title>Webpack Demo</title>
+	    <script src="https://unpkg.com/lodash@4.16.6"></script>
+	  </head>
+	  <body>
+	    <script src="src/index.js"></script>
+	  </body>
+	</html>
+	```
+8. (새로 만든 폴더)프로젝트 루트 레벨에 src 폴더를 생성하고 그 안에 index.js 파일 생성하고 아래 코드를 적용한다
+	```javascript
+	function component() {
+	  var element = document.createElement('div');
+
+	  /* lodash is required for the next line to work */
+	  element.innerHTML = _.join(['Hello','webpack'], ' ');
+
+	  return element;
+	}
+
+	document.body.appendChild(component());
+	```
+9. index.html 파일을 Live Server 로 실행한다.
+<br />
