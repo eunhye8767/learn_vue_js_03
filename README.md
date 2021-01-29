@@ -275,3 +275,13 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 2. 특정 라이브러리 검색하여 cdn 주소를 불러오지 않아도 **간편하게 명령어를 입력하여 해당 라이브러리 설치**가 가능하다.
   - 예: npm install jquery-ui / npm install jquery
 <br />
+
+## 4. NPM(Node Package Manager)
+### 4.1. NPM 지역 설치 명령어와 제거 명령어 - uninstall
+1. npm install gulp 명령어를 입력하여 gulp를 설치한다
+  - npm/package.json 파일에 해당 라이브러리가 설치된 것을 확인할 수 있다<br />
+  ![4-1-1](./_images/4-1-1.png)<br />
+2. 설치가 완료된 후에 npm uninstall gulp 명령어를 입력하여 삭제한다
+  - npm/package.json 파일에서 해당 라이브러리가 삭제된 것을 확인할 수 있다<br />
+  ![4-1-2](./_images/4-1-2.png)<br />
+  
