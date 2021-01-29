@@ -26,6 +26,7 @@
 **웹팩이란 최신 프런트엔드 프레임워크에서 가장 많이 사용되는 모듈 번들러(Module Bundler)**.<br />
 모듈 번들러란 웹 애플리케이션을 구성하는 자원(HTML, CSS, Javscript, Images 등)을 모두 각각의 모듈로 보고 
 이를 조합해서 병합된 하나의 결과물을 만드는 도구를 의미한다.
+- 참고(강의샘) : https://joshua1988.github.io/webpack-guide/
 <br /><br />
 
 ### 1.2. 모듈이란?
@@ -270,18 +271,54 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 
 ### 3.6. NPM을 사용하는 이유
 1. npm/package.json : **각각의 라이브러리 목록과 버전을 확인**할 수 있다.<br />
-  - 각각의 라이브리별 버전 관리가 용이하다.<br />
+	- 각각의 라이브리별 버전 관리가 용이하다.<br />
 	![3-6-1](./_images/3-6-1.png)<br />
 2. 특정 라이브러리 검색하여 cdn 주소를 불러오지 않아도 **간편하게 명령어를 입력하여 해당 라이브러리 설치**가 가능하다.
-  - 예: npm install jquery-ui / npm install jquery
+	- 예: npm install jquery-ui / npm install jquery
 <br />
 
 ## 4. NPM(Node Package Manager)
 ### 4.1. NPM 지역 설치 명령어와 제거 명령어 - uninstall
 1. npm install gulp 명령어를 입력하여 gulp를 설치한다
-  - npm/package.json 파일에 해당 라이브러리가 설치된 것을 확인할 수 있다<br />
-  ![4-1-1](./_images/4-1-1.png)<br />
+	- npm/package.json 파일에 해당 라이브러리가 설치된 것을 확인할 수 있다<br />
+	![4-1-1](./_images/4-1-1.png)<br />
 2. 설치가 완료된 후에 npm uninstall gulp 명령어를 입력하여 삭제한다
-  - npm/package.json 파일에서 해당 라이브러리가 삭제된 것을 확인할 수 있다<br />
-  ![4-1-2](./_images/4-1-2.png)<br />
-  
+	- npm/package.json 파일에서 해당 라이브러리가 삭제된 것을 확인할 수 있다<br />
+	![4-1-2](./_images/4-1-2.png)<br />
+	<br />
+
+### 4.2. NPM 전역 설치 명령어 - install --global
+1. install 뒤에 설치옵션(실행옵션) --global 을 넣어본다
+	```
+	npm install gulp --global
+	```
+2. permission 에러로 설치가 안되면 sudo 를 추가하여 명령어를 입력한다
+	```
+	sudo npm install gulp --global
+	```
+3. 설치가 완료되면 **라이브러리명@버전**을 확인할 수 있다.
+	- 스펠링을 잘못기재하여 전혀 다른 라이브러리를 설치할 수 있으니 해당 부분을 확인한다
+	- 쓰이지 않는 라이브러리의 경우 버전이 낮기 때문에 해당 부분을 확인한다
+	![4-2-1](./_images/4-2-1.png)<br />
+4. npm install gulp 로 설치했을 때엔 npm/node_modules 폴더에 해당 설치된 라이브러리의 폴더가 자동 생성되었었는데 **--global 옵션으로 설치했을 때앤 node_modules 폴더에 해당 라이브러리의 폴더가 생성되지 않는다.**
+5. 설치가 완료된 gulp 명령어를 입력한다
+	- 시스템 상에서 명령어를 인식할 수 있게 제공하는 라이브러리들이 몇 개 있는데 그 중에 하나가 gulp 이다.
+	```
+	gulp
+	```
+	![4-2-2](./_images/4-2-2.png)<br />
+<br />
+
+### 4.3. 전역으로 설치된 라이브러리 경로 확인
+1. NPM 전역 설치 경로
+	- --global 옵션 명령어로 설치된 라이브러리는 OS에 따라 해당 폴더 경로에 설치된다
+	```
+	# window
+	%USERPROFILE%\AppData\Roaming\npm\node_modules
+
+	# mac
+	/usr/local/lib/node_modules
+	```
+	![4-3-1](./_images/4-3-1.png)<br />
+2. 시스템에서 그 라이브러리를 제공하는 CLI, 명령어 인식 기능들을 활용하기 위해서 --global를 설치한다.
+<br />
