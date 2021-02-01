@@ -614,3 +614,64 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 5. output : entry 파일을 어떤 경로에 저장할 것인가<br />
 	![5-6-3](./_images/5-6-3.png)<br />
 <br />
+
+### 5.7. 튜토리얼 파트 6 - 튜토리얼 소스 분석
+1. [lodash join() API 문서](https://lodash.com/docs/4.17.15#join)
+2. cdn 으로 불러온 lodash 라이브러리를 npm 으로 설치하여 index.html 파일을 수정하였다
+	```html
+	<!-- index.html -->
+	<html>
+	  <head>
+	    <title>Webpack Demo</title>
+	    <script src="https://unpkg.com/lodash@4.16.6"></script>
+	  </head>
+	  <body>
+	    <script src="src/index.js"></script>
+	  </body>
+	</html>
+	```
+3. cdn 으로 불러온 lodash@4.16.6 스크립트 주소와 js/index.js 는 주석(삭제) 처리.
+	```html
+	<!-- index.html -->
+	<html>
+	  <head>
+	    <title>Webpack Demo</title>
+	    <!-- <script src="https://unpkg.com/lodash@4.16.6"></script> -->
+	  </head>
+	  <body>
+	    <!-- <script src="src/index.js"></script> -->
+	  </body>
+	</html>
+	```
+4. src/index.js 파일에 설치한 lodash 라이브러리를 ES6 문법으로 import 한다
+	- _ 라는 변수에 lodash 변수를 담았다
+	- lodash 의 .join API를 이용하여 Hello webpack 문구를 화면에 노출한다
+	```
+	import _ from 'lodash';
+
+	function component() {
+	  var element = document.createElement('div');
+
+	  /* lodash is required for the next line to work */
+	  element.innerHTML = _.join(['Hello','webpack'], ' ');
+
+	  return element;
+	}
+
+	document.body.appendChild(component());
+	```
+5. webpack.config.js 에 작성한 코드에 맞게 생성된 dist/main.js 를 인클루드 해준다.
+	```html
+	<!-- index.html -->
+	<html>
+	  <head>
+	    <title>Webpack Demo</title>
+	    <!-- <script src="https://unpkg.com/lodash@4.16.6"></script> -->
+	  </head>
+	  <body>
+	    <!-- <script src="src/index.js"></script> -->
+	    <script src="dist/main.js"></script>
+	  </body>
+	</html>
+	```
+<br />
