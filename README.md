@@ -565,3 +565,38 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 		- 한줄로 길게 나열된 형태에서 아래와 이미지처럼 알아보기 쉽게 코드 정렬이 바뀐것을 확인할 수 있다<br />
 		![5-4-2](./_images/5-4-2.png)<br />
 <br />
+
+### 5.5. 튜토리얼 파트 4 - 웹팩 설정 파일 적용
+1. 위와 같이 설정을 하면 dist 폴더에 main.js 로 변환이 되었는데 dist 폴더가 아닌 다른 폴더에 설정하려고 할 떈 build에 한 줄로 계속 붙여 나가야 한다. (아래 코드 참고)
+	- **웹팩을 사용하게 되면 많은 옵션들을 추가해야 하기 때문에 아래 코드처럼 한 줄로 관리하기엔 문제가 많다.**
+	- 따라서, **한 줄로 관리하는 것이 아닌 웹팩 설정 파일을 이용하여 적용**한다.
+	```javascript
+	// package.json
+	"scripts": {
+	  "build": "webpack --mode=none --entry=src/index.js --output=public/output.js"
+	}
+	```
+2. 프로젝트 **루트 폴더에 웹팩 설정 파일 webpack.config.js 을 생성**한다<br />
+	![5-5-1](./_images/5-5-1.png)<br />
+3. [ webpack.congig.js ] 모듈 문법을 이용하여 파일을 작성한다.(아래 코드 적용)
+	```javascript
+	var path = require('path');
+
+	module.exports = {
+	  mode: 'none',
+	  entry: './src/index.js',
+	  output: {
+	    filename: 'main.js',
+	    path: path.resolve(__dirname, 'dist')
+	  }
+	};
+	```
+4. [ package.json ] build: 'webpack'로 변경한다.
+	```javascript
+	"build": "webpack"
+	```
+	![5-5-2](./_images/5-5-2.png)<br />
+5. 빌드를 실행시킨다
+	```
+	npm run build
+	```
