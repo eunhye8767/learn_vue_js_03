@@ -600,3 +600,17 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	```
 	npm run build
 	```
+	<br />
+
+### 5.6. 튜토리얼 파트 5 - 웹팩 설정 파일 설명
+1. var path = require('path');
+	- node js의 모듈 문법
+	- path 라는 노드 js의 ptth 라이브러리를 들고와서 로딩해서 path 라는 변수에 담는다<br />
+	![5-6-1](./_images/5-6-1.png)<br />
+2. path.resolve(__dirname, 'dist') 라는 API를 사용하게 된다<br />
+	![5-6-2](./_images/5-6-2.png)<br />
+3. node js 의 path 관련 설명 [공식문서 바로가기](https://nodejs.org/api/path.html#path_path_resolve_paths)
+4. entry : 변환할 파일 대상
+5. output : entry 파일을 어떤 경로에 저장할 것인가<br />
+	![5-6-3](./_images/5-6-3.png)<br />
+<br />
