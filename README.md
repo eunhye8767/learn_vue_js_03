@@ -539,6 +539,29 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	npm run build
 	```
 4. 프로젝트 루트 폴더에 dist/main.js 파일이 생성된 것을 확인할 수 있다<br />
-	- main.js 파일을 보면 코드가 한 줄로 길게 나열되어 적용된 것을 확인할 수 있다.
+	- main.js 파일을 보면 코드가 한 줄로 길게 나열되어 적용된 것을 확인할 수 있다.<br />
 	![5-3-1](./_images/5-3-1.png)<br />
 	<br />
+
+### 5.4. 튜토리얼 파트 3 - mode 적용
+1. package.json 에 build: webpack 으로 저장한 후 npm run build 를 실행하게 되면 warning 문구를 볼 수도 있는데, 이것은 웹팩 3버전과 4버전의 차이로 이해하면 된다.
+	- mode : 'developement' , 'production' , 'none'
+	- 기본적으로 mode 는 'none' 으로 설정하여 진행할 예정이다. (수업진행방식)<br />
+	![5-4-1](./_images/5-4-1.png)<br />
+2. [ package.json ] scripts - build: webpack 에 mode 값을 none로 적용한다
+	- none 은 wabpack --mode=none 으로 적용
+		```javascript
+		"scripts": {
+		  "build": "webpack --mode=none"
+		}
+		```
+3. 빌드를 실행시킨다
+	```
+	npm run build
+	```
+4. **mode 를 none 으로 적용**하여 빌드를 실힝하면 
+	1. **warning 문구가 사라진 것**을 확인할 수 있다.
+	2. **dist/main.js 파일이 바뀐 것**을 확인할 수 있다.
+		- 한줄로 길게 나열된 형태에서 아래와 이미지처럼 알아보기 쉽게 코드 정렬이 바뀐것을 확인할 수 있다<br />
+		![5-4-2](./_images/5-4-2.png)<br />
+<br />
