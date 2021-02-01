@@ -449,7 +449,7 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	- NPM 버전 6 이상
 <br />
 
-#### 5.2.1. 실습 절차 - 웹 페이지 자원 구성
+#### 실습 절차 - 웹 페이지 자원 구성
 1. 새폴더를 만들고 만든 폴더 기준으로 터미널 창을 연다<br />
 	![5-2-1](./_images/5-2-1.png)<br />
 2. npm init -y 명령어 입력, package.json 파일 자동 생성
@@ -495,3 +495,50 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 	```
 9. index.html 파일을 Live Server 로 실행한다.
 <br />
+
+### 5.3. 튜토리얼 파트 2 - 웹팩 적용 후
+#### 실습 절차 - 웹팩 빌드를 위한 구성 및 빌드
+1. 웹팩 빌드 및 빌드 결과물로 실행하기 위해 index.js, index.html 파일을 아래 코드로 변경한다.
+	```javascript
+	// index.js
+	import _ from 'lodash';
+
+	function component() {
+	  var element = document.createElement('div');
+
+	  /* lodash is required for the next line to work */
+	  element.innerHTML = _.join(['Hello','webpack'], ' ');
+
+	  return element;
+	}
+
+	document.body.appendChild(component());
+	```
+	```html
+	<!-- index.html -->
+	<html>
+	  <head>
+	    <title>Webpack Demo</title>
+	    <!-- <script src="https://unpkg.com/lodash@4.16.6"></script> -->
+	  </head>
+	  <body>
+	    <!-- <script src="src/index.js"></script> -->
+	    <script src="dist/main.js"></script>
+	  </body>
+	</html>
+	```
+2. 위와 같이 적용을 하면 웹팩을 실행시킬 수 있는 상태가 되었기 때문에 scripts 라는 커스텀 명령어를 추가해서 build 라는 명령어를 실행해서 webpack 실행시키려고 한다
+	- 웹팩 빌드 명령어를 실행하기 위해 package.json 파일에 아래 내용 추가
+		```javascript
+		"scripts": {
+		  "build": "webpack"
+		}
+		```
+3. npm run build 명령어 입력 후, index.html 페이지를 Live Server 로 확인한다
+	```javascript
+	npm run build
+	```
+4. 프로젝트 루트 폴더에 dist/main.js 파일이 생성된 것을 확인할 수 있다<br />
+	- main.js 파일을 보면 코드가 한 줄로 길게 나열되어 적용된 것을 확인할 수 있다.
+	![5-3-1](./_images/5-3-1.png)<br />
+	<br />
