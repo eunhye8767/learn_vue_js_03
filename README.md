@@ -733,3 +733,11 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 <br />
 <br />
 
+## 6. 바벨과 ES6 모듈 문법
+### 6.1. 바벨 소개
+- [바벨 공식 문서](https://babeljs.io/)
+	- 공식 문서 사이트에서 변환이 안 될 경우,<br />Try it out 페이지, 왼쪽메뉴 중 FORCE ALL TRANSFORMS 체크<br />
+		![6-1-1](./_images/6-1-1.png)<br />
+	- 바벨 공식 문서 - Modules [자세히보기](https://babeljs.io/docs/en/learn#modules)
+- 자바스크립트의 최신 문법들을 최대한 많은 브라우저가 호환할 수 있게 변환해주는 도구
+<br />
