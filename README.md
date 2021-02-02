@@ -741,3 +741,49 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 	- 바벨 공식 문서 - Modules [자세히보기](https://babeljs.io/docs/en/learn#modules)
 - 자바스크립트의 최신 문법들을 최대한 많은 브라우저가 호환할 수 있게 변환해주는 도구
 <br />
+
+### 6.2. ES6 Modules 문법
+#### 모듈화 기능을 사용하기 위한 기본적인 import, export 문법
+- **export 문법**
+	- 다른 파일에서 가져다 쓸 변수나 함수의 앞에 export 라는 키워를 붙인다. 
+	- export(익스폭트)된 파일은 import(임포트)로 불러와 사용할 수 있다.
+	```javascript
+	export 변수, 함수
+	```
+<br />
+
+- **import 문법**
+	- export(익스포트)된 변수나 함수를 {} 에 선언한 뒤 해당 파일이 있는 경로를 적어준다
+	```javascript
+	import { 불러올 변수 또는 함수 이름 } from '파일 경로';
+	```
+	<br />
+
+#### import & export 기본 예제
+- 예제 1.
+	- [math.js] pi 를 선언하고 export 로 꺼냈다. 
+	- [app.js] ./math.js 파일의 변수 pi를 불러온다.
+	- 자바스크립트 별로 변수의 유효 범위가 구분이 된다. 모듈 차원에서의 관리가 수월해진다.
+	```javascript
+	// math.js
+	export var pi = 3.14;
+
+	// app.js
+	import { pi } from './math.js';
+	console.log(pi);  // 3.14
+	```
+	<br />
+
+- 예제 2.
+	- [math.js] 선언한 함수 sum을 export로 꺼내고 [app.js] 에서 sum 함수를 불러와서 실행
+	```javascript
+	// math.js
+	export var pi = 3.14;
+	export function sum(a,b) {
+		return a + b;
+	}
+
+	// app.js
+	import { sumb } from './math.js';
+	sum(10, 20)   // 30
+	```
