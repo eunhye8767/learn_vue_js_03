@@ -27,13 +27,45 @@
 모듈 번들러란 웹 애플리케이션을 구성하는 자원(HTML, CSS, Javscript, Images 등)을 모두 각각의 모듈로 보고 
 이를 조합해서 병합된 하나의 결과물을 만드는 도구를 의미한다.
 - 참고(강의샘) : https://joshua1988.github.io/webpack-guide/
-<br /><br />
+<br />
+
+#### Webpack First Principle 강의 참고
+- [Webpack First Principle](https://youtu.be/WQue1AN93YU)
+- [ 크롬 개발자 도구 ] Network 패널 > No throttling : 네트워크 지연시간 또는 가상환경 설정
+	- No throttling 또는 아래 이미지 부분을 클릭하면 네트워크 설정이 가능
+		![1-1-1](./_images/1-1-1.png)<br />	
+	- 네트워크 속도에 따라 로딩 시간이 달라진다<br />
+	![1-1-2](./_images/1-1-2.png)<br />	
+	![1-1-3](./_images/1-1-3.png)<br />	
+<br />
+
+- **TIMELINE** : 일반적인 브라우저의 웹페이지를 그리는 과정들, 렌더링 파이브 라인<br />
+	![1-1-4](./_images/1-1-4.png)<br />	
+	- 같은 파일을 웹팩 **적용 전과 후를 비교**했을 때
+		- 웹팩 적용 후, 불러오는 파일의 수가 줄어들었다
+		- 로딩 속도(시간)가 눈의 띄게 줄어들었다<br />
+		![1-1-6](./_images/1-1-6.png)<br />	
+		![1-1-7](./_images/1-1-7.png)<br />	
+<br />
+
+- **WEBPACK(웹팩) AN AHEAD OF TIME COMPILER FOR THE BROWSER**(브라우저를 위한 사전 컴파일러)
+	- WEBPACK Common Misconception : It's **Not** Just For Javascript<br />: **웹팩**은 자바스크립트만을 위한 게 아닌 **웹 페이지를 구성하는 자원과 관계된 도구**
+<br />
+
+- 이전의 웹 개발자들은 Gulp 사용법을 인지한 후 작업(웹 개발자의 몫)을 진행했었다.<br />웹팩은 Gulp처럼 스크립트를 짜는 것이 아니라 설정 방법에 대해 알고 작업을 진행하면 된다<br />때문에 훨씬 더 수월하게 웹 애플리케이션 또는 간단한 웹 자동화 뿐 아니라 모듈 번들러라는 결과와 모듈 관리까지 포함해서 더 진행할 수 있다.<br >즉, **웹팩으로 하는 것이 간결하고 성능이 보장되어 현대 모던 웹에 적합한 개발 방식**이다.
+	- 웹 자동화 도구 Gulp(걸프) [바로가기](https://gulpjs.com/)
+<br />
+
+- 웹팩은 진입점이 하나만 들어가면 된다.
+	- 진입점이 하나만 주어줬을 떄 나머지의 연관 관계된 것은 웹팩에서 다 해석하겠다.
+		![1-1-5](./_images/1-1-5.png)<br />	
+<br />
 
 ### 1.2. 모듈이란?
 모듈이란 프로그래밍 관점에서 특정 기능을 갖는 작은 코드 단위를 의미한다.<br />
 자바스크립트로 치면 아래와 같은 코드가 모듈이다.    
-  - export 코드는 ES6의 Modules 문법을 사용했다.<br />
-  문법 참고사이트: https://babeljs.io/docs/en/learn#modules
+  - export 코드는 ES6의 Modules 문법을 사용했다.<br />  문법 참고사이트: https://babeljs.io/docs/en/learn#modules
+	- **모듈의 특징은 다른 모듈에서 활용할 수도 있고 모듈들을 합쳐 하나의 모듈로 만들 수도 있다**
 ```javascript
 // math.js  
 function sum(a, b) {
@@ -699,3 +731,7 @@ Require.js와 같은 라이브러리를 쓰지 않으면 동적으로 원하는 
 
 	})()
 	```
+<br />
+<br />
+<br />
+
