@@ -787,3 +787,50 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 	import { sumb } from './math.js';
 	sum(10, 20)   // 30
 	```
+<br />
+
+### 6.3. ES6 Modules 실습
+#### 실습 폴더 : ./es6-modules
+1. 프로젝트 루트 폴더 기준, 라이브러리를 설치한다.
+	- 프로젝트 루트 폴더 기준, **npm i 명령어를 입력**하여 라이브러리를 설치한다
+		```javascript
+		npm i
+		```
+	- 기본적으로 [pagckage.json] **devDependencies 속성에 정의되어 있는 라이브러리가 설치**된다.<br />
+		![6-3-1](./_images/6-3-1.png)<br />
+<br />
+
+2. [math.js] sum() 함수 구현 후 export 하세요.
+	```javascript
+	// math.js
+	export function sum(a, b) {
+	  return a + b;
+	}
+	```
+<br />
+
+3. [app.js] 두 숫자의 합을 구하는 sum 함수를 import하여 콘솔에 찍어보세요.
+	- 문법 : import { 불러올 기능 or 변수 } from '파일의 위치'
+	- import 문법에서 파일 경로를 먼저 입력하면 { 변수 / 함수 } 를 입력할 때 첫번째 스펠링만 입력해도 해당 변수/함수와 관련된 문구가 자동완성이 된다.<br />
+		![6-3-2](./_images/6-3-2.png)<br />
+		```javascript
+		// app.js
+		import { sum } from './math'
+		console.log('10 + 20 = ', sum(10,20));
+		```
+<br />
+
+4. [package.json] scripts - build: "webpack"<br />
+	![6-3-3](./_images/6-3-3.png)<br />
+	- [webpack.config.js] entry에 기재된 파일명이 output에 기재된 경로와 파일명으로 변환<br />
+		![6-3-5](./_images/6-3-5.png)<br />
+		<br />
+
+5. 빌드를 실행시킨다
+	```
+	npm run build
+	```
+	<br />
+
+6. index.html 파일을 실행하면 함수로 정의한 콘솔 로그가 찍힌 것을 확인할 수 있다.<br />
+	![6-3-4](./_images/6-3-4.png)<br />
