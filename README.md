@@ -995,3 +995,120 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 따라서, **내용이 변환이 되었을 때에는 chunkhash(청크해시) 같은 것으로 고유값, 구분자를 줘서 이 파일이 변화가 되었다는 인식을 시키면서 사용자가 강제 새로고침하지 않아도 결과물을 잘 확인할 수 있게 하는 전략**이라고 할 수 있다.
 <br />
 
+### 7.4. loader
+- 웹팩이 웹 애플리케이션을 해석할 때 자바스크립트 파일이 아닌 웹 자원(HTML, CSS, Images, 폰트 등)들을 변환할 수 있도록 도와주는 속성이다.
+	- 엔트리나 아웃풋 속성과는 다르게 **module라는 이름을 사용**한다.
+	```javascript
+	// webpack.config.js
+	module.exports = {
+	  module: {
+	    rules: []
+	  }
+	}
+	```
+<br />
+
+### 7.5. 주요 속성을 이해하기 위한 두 번째 튜토리얼
+- [참고 자료 - 튜토리얼 문서](https://joshua1988.github.io/webpack-guide/tutorials/code-splitting.html)
+<br />
+
+#### 7.5.1. 웹팩의 주요 4가지 속성을 이해하기 위해 간단한 실습
+1. 실습할 code-splitting 폴더를 생성하고 해당 프로젝트 폴더 기준 터미널을 연다.
+	- 강의 참고 자료 : code-splitting-teacher
+	![7-5-1](./_images/7-5-1.png)<br />
+	<br />
+
+2. [터미널] npm init -y 명령어를 입력하여 package.json 파일 생성
+	- 웹 서비스 프로젝트 진행, npm 기반으로 진행할 것으로 정의
+<br />
+
+3. [터미널] 실습에 필요한 라이브러리 설치(-D 옵션으로 설치)
+	```
+	npm i webpack webpack-cli css-loader style-loader mini-css-extract-plugin -D
+	```
+	- [터미널]에서 라이브러리가 설치되면 버전과 함께 확인할 수 있다
+	![7-5-2](./_images/7-5-2.png)<br />
+	<br />
+
+4. 프로젝트 루트 레벨에 index.html 파일을 생성하고 아래 내용 추가
+	```html
+	<!DOCTYPE html>
+	<html>
+	  <head>
+	    <meta charset="utf-8">
+	    <title>CSS & Libraries Code Splitting</title>
+	  </head>
+	  <body>
+	    <header>
+	      <h3>CSS Code Splitting</h3>
+	    </header>
+	    <div>
+	      <!-- 웹팩 빌드 결과물이 잘 로딩되면 아래 p 태그의 텍스트 색깔이 파란색으로 표시됨 -->
+	      <p>
+	        This text should be colored with blue after injecting CSS bundle
+	      </p>
+	    </div>
+	    <!-- 웹팩의 빌드 결과물을 로딩하는 스크립트 -->
+	    <script src="./dist/bundle.js"></script>
+	  </body>
+	</html>
+	```
+	<br />
+
+5. 프로젝트의 루트 레벨에 base.css 파일 생성 후 아래 내용 추가
+	```css
+	/* base.css */
+	p {
+	  color : blue;
+	}
+	```
+	<br />
+
+6. 프로젝트 루트 폴더에서 index.js 파일을 생성 후 아래 내용 추가
+	- import './base.css' == base.css 파일을 들고 오겠다는 의미
+	```javascript
+	import './base.css';
+	```
+	<br />
+
+7. 프로젝트 루트 레벨에 웹팩 설정 파일 webpack.config.js 추가
+	- mode 속성은 웹팩 버전 4 이상에서 추가된 속성이다.<br />
+	웹팩으로 빌드할 때의 development, production, none 모드를 설정할 수 있다.
+	```javascript
+	var path = require('path');
+
+	module.exports = {
+	  mode: 'none',
+	  entry: './index.js',
+	  output: {
+	    filename: 'bundle.js',
+	    path: path.resolve(__dirname, 'dist')
+	  },
+	  module: {
+	    rules: [
+	      {
+	        test: /\.css$/,
+	        use: ['style-loader', 'css-loader']
+	      }
+	    ]
+	  },
+	}
+	```
+	<br />
+
+8. 위 1번~7번까지의 실습이 entry, output, module(= loader)에 관한 실습과정이다.
+
+9. [package.json] "build": "webpack" 항목을 적용한다.
+	```javascript
+	// package.json
+	"scripts": {
+	  "build": "webpack"
+	}
+	```
+	![7-5-3](./_images/7-5-3.png)<br />
+	<br />
+
+10. [터미널] 빌드를 실행시킨다
+	```
+	npm run build
+	```
