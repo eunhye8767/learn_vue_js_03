@@ -824,7 +824,12 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 	![6-3-3](./_images/6-3-3.png)<br />
 	- [webpack.config.js] entry에 기재된 파일명이 output에 기재된 경로와 파일명으로 변환<br />
 		![6-3-5](./_images/6-3-5.png)<br />
-		<br />
+	- **웹팩 속성 정의(/es6-modules/webpack.config.js 참고)**
+		- mode : 중요하지 않다. 버전 3과 4의 차이점
+		- entry : 빌드를 할 대상 파일을 정의
+		- output : (빌드를 하고난 후)웹팩으로 변환을 하고 난 후의 결과물에 대한 정보 정의
+		- module : entry 에서 output 으로 변환을 할 때 중간에 개입하는 것이 module
+<br />
 
 5. 빌드를 실행시킨다
 	```
@@ -851,4 +856,18 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 		```
 	- surce-map 을 입력하면 콘솔 로그에서 보여진 app.js 파일을 sorce 패널탭 하단에서 어떤 파일로 빌드되었는 지에 대한 정보를 확인할 수 있다.
 		![6-4-3](./_images/6-4-3.png)<br />
+<br />
+<br />
+<br />
+
+## 7. 웹팩의 주요 속성 4가지
+- 참고자료 [바로가기](https://joshua1988.github.io/webpack-guide/concepts/overview.html)
+
+### 7.1. 웹팩 주요 속성 소개
+#### 웹팩의 4가지 주요 속성
+웹팩의 빌드(파일 변환) 과정을 이해하기 위해서는 아래 4가지 주요 속성에 대해서 알고 있어야 한다
+1. entry
+2. output
+3. loader
+4. plugin
 <br />
