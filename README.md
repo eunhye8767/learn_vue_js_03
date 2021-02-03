@@ -918,3 +918,80 @@ entry: {
 위와 같이 엔트리 포인트를 분리하는 경우는 싱글 페이지 애플리케이션이 아닌 특정 페이지로 진입했을 때 서버에서 해당 정보를 내려주는 형태의 멀티 페이지 애플리케이션에 적합하다.
 <br />
 
+### 7.3. output
+- output 속성은 웹팩을 돌리고(변환,빌드) 난 **결과물의 파일 경로**를 의미한다.
+	```javascript
+	// webpack.config.js
+	module.exports = {
+	  output: {
+	    filename: 'bundle.js'
+	  }
+	}
+	```
+	<br />
+
+#### 7.3.1. Output 속성 옵션 형태
+- 최소한 filename은 지정해줘야 하며 일반적으로 아래와 같이 path 속성을 함께 정의한다.
+	- filename 속성 : 웹팩으로 빌드한 파일의 이름을 의미한다.
+	- path 속성 : 해당 파일의 경로를 의미한다.
+	- path 속성에서 사용된 path.resolve() 코드는 인자로 넘어온 경로들을 조합하여 유효한 파일 경로를 만들어주는 Node.js API 이다.
+	- ./dist : dist 폴더를 생성하여 해당 경로로 저장한다
+	```javascript
+	// webpack.config.js
+	var path = require('path');
+
+	module.exports = {
+	  output: {
+	    filename: 'bundle.js',
+	    path: path.resolve(__dirname, './dist')
+	  }
+	}
+	```
+	- API가 하는 역할을 좀 더 이해하기 쉽게 표현하면 아래와 같다.
+		```javascript
+		output: './dist/bundle.js'
+		```
+	- path 라이브러리의 [자세한 사용법 바로가기](https://nodejs.org/api/path.html)
+<br />
+
+#### 7.3.2. Output 파일 이름 옵션
+filename 속성에 여러 가지 옵션을 넣을 수 있다.
+1. 결과 파일 이름에 entry 속성을 포함하는 옵션
+	```javascript
+	module.exports = {
+	  output: {
+	    filename: '[name].bundle.js'
+	  }
+	};
+	```
+2. 결과 파일 이름에 웹팩 내부적으로 사용하는 모듈 ID를 포함하는 옵션
+	```javascript
+	module.exports = {
+	  output: {
+	    filename: '[id].bundle.js'
+	  }
+	};
+	```
+3. 매 빌드시 마다 고유 해시 값을 붙이는 옵션
+	```javascript
+	module.exports = {
+	  output: {
+	    filename: '[name].[hash].bundle.js'
+	  }
+	};
+	```
+4. 웹팩의 각 모듈 내용을 기준으로 생생된 해시 값을 붙이는 옵션
+	```javascript
+	module.exports = {
+	  output: {
+	    filename: '[chunkhash].bundle.js'
+	  }
+	};
+	```
+이렇게 생성된 결과(빌드했을 때) 파일의 이름에는 각각 엔트리 이름, 모듈 아이디, 해시 값 등이 포함된다.<br />
+<br />
+
+항상 bundel.js로 변환이 되면 내부의 파일 내용과 관계가 없이 브라우저 캐싱 때문에 같은 파일을 화면에 뿌려주기 때문에 이거를 강제 새로고침해야하는 캐시를 비워줘야 하는 상황이 생긴다. <br />
+따라서, **내용이 변환이 되었을 때에는 chunkhash(청크해시) 같은 것으로 고유값, 구분자를 줘서 이 파일이 변화가 되었다는 인식을 시키면서 사용자가 강제 새로고침하지 않아도 결과물을 잘 확인할 수 있게 하는 전략**이라고 할 수 있다.
+<br />
+
