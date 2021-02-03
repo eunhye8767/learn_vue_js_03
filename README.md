@@ -834,3 +834,21 @@ Require.js와 같은 라이브러리를 쓰지 않으면 *동적으로 원하는
 
 6. index.html 파일을 실행하면 함수로 정의한 콘솔 로그가 찍힌 것을 확인할 수 있다.<br />
 	![6-3-4](./_images/6-3-4.png)<br />
+<br />
+
+### 6.4. ES6 Modules 빌드 결과물 분석 - sourcemap
+1. 콘솔 로그를 보면 app.js 파일로 확인이 된다
+	![6-4-1](./_images/6-4-1.png)<br />
+2. 하지만 [개발자도구 - 네트워크 패널] 에서 보면 main.bundle.js 파일만 불러오는 것을 확인할 수 있다.
+	![6-4-2](./_images/6-4-2.png)<br />
+3. **웹팩에서 기본적으로 제공하는 기능으로 콘솔를 찍었을 때 원본 파일로 연결**이 된다
+4. [webpack.config.js] devtool: 'source-map' 적용
+	- **source-map** 외에 여러 유형들이 있는데, 그 값을 적용하면 빌드한 결과물과 빌드되기 전의 결과물을 연결해주는 그런 기능이 생기게 된다. 꽤 유용한 기능이고 앞으로 매번 마주치게 될 기능이다.
+		```javascript
+		module.exports = {
+		  devtool: 'source-map'
+		};
+		```
+	- surce-map 을 입력하면 콘솔 로그에서 보여진 app.js 파일을 sorce 패널탭 하단에서 어떤 파일로 빌드되었는 지에 대한 정보를 확인할 수 있다.
+		![6-4-3](./_images/6-4-3.png)<br />
+<br />
