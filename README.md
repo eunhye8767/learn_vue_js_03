@@ -1112,3 +1112,30 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 	```
 	npm run build
 	```
+<br />
+
+### 7.6. 두 번째 튜토리얼 - 웹팩 결과 로그 분석
+1. npm run build 명령어를 입력하면 [터미널] 창에서 > webpack 을 볼 수 있는데, [package.json] build에 입력한 webpack이 실행된 것을 알 수 있다<br />
+	![7-6-1](./_images/7-6-1.png)<br />
+2. webpack 버전과 시간 등 빌드 관련 로그를 [터미널] 창에서 확인할 수 있다
+	![7-6-2](./_images/7-6-2.png)<br />
+	<br />
+	
+### 7.7. 두 번째 튜토리얼 - 브라우저에서 빌드 결과물 확인
+1. 프로젝트의 index.html 파일을 열고 [개발자도구]로 확인을 해보면, p 태그에 스타일값이 적용된 것을 알 수 있다. 하지만 작업한 index.html 파일을 VS Code에서 확인해보면 style 값을 지정해주지 않았다.
+	- index.js 파일에서 base.css 파일을 import 했다.
+	![7-7-1](./_images/7-7-1.png)<br />
+2. [index.html] 에서 script - ./dist/bundle.js 을 주석 처리한다.
+	![7-7-2](./_images/7-7-2.png)<br />
+3. [index.html] 을 확인하면 style 값이 사라진 것을 확인할 수 있다.
+	- [./dist/bundle.js 파일 확인해보기](#78-두-번째-튜토리얼---웹팩-빌드-결과-파일-분석)<br />
+	![7-7-3](./_images/7-7-3.png)<br />
+
+### 7.8. 두 번째 튜토리얼 - 웹팩 빌드 결과 파일 분석
+1. [./dist/bundle.js] <code>/* 0 */</code>에 적힌 숫자를 통해 몇 개의 모듈이 적용되어 있는 지 확인할 수 있다.<br />
+	![7-8-1](./_images/7-8-1.png)<br />
+2. [./dist/bundle.js] 파일을 쭉 보다보면 3번 모듈에서 p 태그와 관련 것을 확인할 수 있다.<br />
+	- base.css 에서 작성한 css 코드가 bundle.js 파일에 적용되었다.
+	- <code>p {\r\n  color : blue;\r\n}</code> 이것을 <b>loader(로더)</b>라고 한다.
+	- <b>자바스크립트가 아닌 파일에 대해서 웹팩 안으로 변환할 수 있게 뭔가를 적용해주는 속성을 loader(로더)</b>라고 보면 된다.
+	![7-8-2](./_images/7-8-2.png)<br />
