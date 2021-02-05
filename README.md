@@ -1184,4 +1184,40 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 			  ]
 			}
 			```
+<br />
+
+### 7.10. 두 번째 튜토리얼 - 로더가 없는 경우의 에러 확인과 css 로더 적용
+1. [webpack.config.js] module 부분을 주석처리한다.
+	- loader(=module) 속성이 정의가 되지 않은 상태에서 npm run build를 실행하려고 한다.<br />
+	![7-10-1](./_images/7-10-1.png)<br />
+2. <code>npm run build</code> 명령어를 터미널창에 입력한다.
+3. [터미널] loader 정의 없이 빌드를 실행할 경우, 오류(error)가 발생한다.
+	- index.js 파일로 모듈을 시작한다
+	- index.js에서 불러온 base.css 에서 에러가 발생했다<br />
+	![7-10-2](./_images/7-10-2.png)<br />
+4. Moudle parse failed: Unexpected token(웹팩으로 변환하려고 했지만 변환할 수가 없다.)<br />
+	![7-10-3](./_images/7-10-3.png)<br />
+5. "loader(로더) 설정을 하세요" 라는 오류 메세지를 확인할 수 있다.
+	- 적절한 loader를 설정해달라는 의미<br />
+	![7-10-4](./_images/7-10-4.png)<br />
+6. loader(로더)를 추가한 후, 빌드를 실행(<code>npm run build</code>)한다.
+	- <code>test: , use: </code> 를 아래 코드와 같이 적용한다.
+		```javascript
+		// webpack.config.js
+		module: {
+		  rules: [
+		    {
+		      test: /\.css$/,
+		      use: ['css-loader']
+		    }
+		  ]
+		}
+		```
+7. loader(로더) 추가 후, 빌드를 실행하면 에러는 나지 않는다.
+	- ".css 파일을 해석할 수 있다는 의미"로 해석된다.<br />
+	![7-10-5](./_images/7-10-5.png)<br />
+8. 프로젝트 - index.html 파일을 열면 잘 보이기는 하지만, p 태그에 css가 적용되지 않는 것으로 확인된다.
+	- **css-loader 만 적용**하면, 웹팩 빌드에 대한 오류는 해결되지만 **프로젝트 html 파일에 css가 적용되지 않는 것으로 확인**된다.
+	![7-10-6](./_images/7-10-6.png)<br />
+<br />
 
