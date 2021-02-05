@@ -1229,9 +1229,38 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 	- ".css 파일을 해석할 수 있다는 의미"로 해석된다.<br />
 	![7-10-5](./_images/7-10-5.png)<br />
 	<br />
-	
+
 8. 프로젝트 - index.html 파일을 열면 잘 보이기는 하지만, p 태그에 css가 적용되지 않는 것으로 확인된다.
 	- **css-loader 만 적용**하면, 웹팩 빌드에 대한 오류는 해결되지만 **프로젝트 html 파일에 css가 적용되지 않는 것으로 확인**된다.<br />
 	![7-10-6](./_images/7-10-6.png)<br />
 <br />
 
+### 7.11. 두 번째 튜토리얼 - 웹팩 로더 적용 순서와 style-loader
+1. 웹팩에서 인식할 수 없는 자바스크립트가 아닌 파일 유형들에 대해서 loader를 적용해야 한다.
+2. .css의 스타일값도 적용되게 webpack.confing.js를 수정한다
+	- **'style-loader', 'css-loader' 순으로 무조건! 적용해야 한다**.
+	- 반대로 'css-loader', 'style-loader' 기입할 경우 에러가 발생한다.
+	```javascript
+	// webpack.config.js
+	module: {
+	  rules: [
+	    {
+	      test: /\.css$/,
+	      use: ['style-loader', 'css-loader']
+	    }
+	  ]
+	}
+	```
+3. style-loader 를 적용하고 프로젝트 폴더의 index.html을 확인하면 정상적으로 작동되는 것을 확인할 수 있다.
+4. **style-loader 의 역활**
+	- 웹팩 안에 들어가는 스타일 코드(css-loader)를 **head 태그 안에 인라인 스타일로 적용**시켜준다.
+	- **loader 는 오른쪽에서 왼쪽 순으로 적용**이 된다. 따라서 style-loader, css-loader 로 적용을 해야 한다.
+		```javascript
+		use: ['style-loader', 'css-loader']  // 오른쪽에서 왼쪽순으로 적용
+		```
+	- **sass를 적용해야할 경우**, sass-loader 를 오른쪽 끝에 먼저 써줘야 한다.
+		```javascript
+		test: /\.scss$/,
+		use: ['style-loader', 'css-loader', 'sass-loader']
+		```
+<br />

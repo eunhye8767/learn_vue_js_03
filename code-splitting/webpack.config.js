@@ -9,13 +9,9 @@ module.exports = {
   },
   module: {
     rules: [
-      // {
-        // test: /\.css$/,
-        // use: ['style-loader', 'css-loader']
-      // }
       {
         test: /\.css$/,
-        use: ['css-loader']
+        use: ['style-loader', 'css-loader']   // 오른쪽에서 왼쪽순으로 적용
       }
     ]
   },
