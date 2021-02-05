@@ -1139,3 +1139,49 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 	- <code>p {\r\n  color : blue;\r\n}</code> 이것을 <b>loader(로더)</b>라고 한다.
 	- <b>자바스크립트가 아닌 파일에 대해서 웹팩 안으로 변환할 수 있게 뭔가를 적용해주는 속성을 loader(로더)</b>라고 보면 된다.
 	![7-8-2](./_images/7-8-2.png)<br />
+	<br />
+
+### 7.9. 두 번째 튜토리얼 - 웹팩 설정 파일 분석
+1. 실습폴더 : code-splitting/webpack.config.js<br />
+	![7-9-1](./_images/7-9-1.png)<br />
+	- <b>mode</b> : production, development, none
+		- **production : 배포할 때엔 꼭! 써줘야한다**
+		- development : 개발할 때 설정
+		- none : 기본적으로 none 으로 설정
+	- <b>entry</b> : 웹팩으로 **변환할 대상의 파일** 주소(경로)
+		- "index.js 파일을 변환했다." 라고 해석
+	- <b>output</b> : 변환한 파일을 **어느 경로에 적용할 것인 지 그 대상을 설정**한다
+		- "dist 라는 폴더를 만들어서 bundle.js 파일을 생성한다." 라고 해석
+		- <code>filename: '[name][chunkhash].js'</code> 처럼 파일이름을 적용할 수 있다.
+		- <code>[chunkhash]</code>은 고유값으로 적용된다.<br />
+		[자세히 보기(4번 참고)](#732-output-파일-이름-옵션)
+	- <b>module</b> : module = loader
+		- module 속성에 rules 객체를 추가하고 웹팩으로 변환할 때 적용될 loader(로더)들을 추가할 수 있다.
+			- <b>rules 속성 아래에 추가되는 것이 규칙</b>이다.
+			- <code>test: /\.css$/</code> .css 라는 확장자를 가진 파일을 대상으로 <code>use: ['style-loader', 'css-loader']</code>에 적용된 loader(로더)를 적용하겠다는 의미로 해석된다.
+			```javascript
+			module: {
+			  rules: [
+			    {
+			      test: /\.css$/,
+			      use: ['style-loader', 'css-loader']
+			    }
+			  ]
+			}
+			```
+			- 바벨 적용을 한다고 가정했을 때, babel-loader 처럼 배열로 추가할 수 있다.
+			```javascript
+			module: {
+			  rules: [
+			    {
+			      test: /\.css$/,
+			      use: ['style-loader', 'css-loader']
+			    },
+			    {
+			      test: /\.js$/,
+			      use: ['babel-loader']
+			    }
+			  ]
+			}
+			```
+
