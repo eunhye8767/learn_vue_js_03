@@ -1264,3 +1264,64 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 		use: ['style-loader', 'css-loader', 'sass-loader']
 		```
 <br />
+
+### 7.12. 두 번째 튜토리얼 - 플러그인 적용 및 분석, 결과확인
+1. CSS 파일을 별도로 분리하기 위해 MiniCssExtractPlugin 플러그인 설정 추가
+	- MiniCssExtractPlugin 플러그인을 프로젝트 구성할 때에 설치하였기 때문에 require로 라이브러리를 불러온다
+	- 아래 코드를 그대로 붙여넣기 한다.
+	```javascript
+	// webpack.config.js
+
+	var path = require('path');
+	// require로 라이브러리 불러오기
+	var MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+	module.exports = {
+	  mode: 'none',
+	  entry: './index.js',
+	  output: {
+	    filename: 'bundle.js',
+	    path: path.resolve(__dirname, 'dist')
+	  },
+	  module: {
+	    rules: [
+	      {
+	        test: /\.css$/,
+	        use: [
+	          { loader: MiniCssExtractPlugin.loader },
+	          "css-loader"
+	        ]
+	      }
+	    ]
+	  },
+	  plugins: [
+	    new MiniCssExtractPlugin()
+	  ],
+	}
+	```
+	<br />
+
+2. 플러그인은 새로운 객체를 생성해주는 형태로 적용한다.
+	```javascript
+	plugins: [
+	  new MiniCssExtractPlugin()
+	],
+	```
+	<br />
+
+3. 플러그인 적용 후, 빌드를 실행하면 dist>main.css 파일이 생성된 것을 확인할 수 있다.
+	- **플러그인 적용 전** dist 폴더<br />
+		![7-12-1](./_images/7-12-1.png)<br />
+		<br />
+	- **플러그인 적용 후** dist 폴더<br />
+		![7-12-2](./_images/7-12-2.png)<br />
+		<br />
+
+4. 프로젝트 폴더의 index.html 에 새로 생성된 main.css 파일을 적용한다
+	```html
+	<link rel="stylesheet" href="./dist/main.css">
+	```
+	<br />
+
+5. webpack - plugins(웹팩의 플러그인)이란 것은 **결과물에 대한 정보를 바꾸거나 변형해줘서 우리에게 제공**해준다.
+<br />

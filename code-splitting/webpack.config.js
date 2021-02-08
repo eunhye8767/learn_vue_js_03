@@ -1,7 +1,8 @@
 var path = require('path');
+var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  mode: 'none',      // production, development, none
+  mode: 'none',
   entry: './index.js',
   output: {
     filename: 'bundle.js',
@@ -11,8 +12,14 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']   // 오른쪽에서 왼쪽순으로 적용
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          "css-loader"
+        ]
       }
     ]
   },
+  plugins: [
+    new MiniCssExtractPlugin()
+  ],
 }
