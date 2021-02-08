@@ -1362,3 +1362,17 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 - [image-webpack-loader](https://github.com/tcoopman/image-webpack-loader)
 - [webpack-bundle-analyzer-plugin](https://github.com/webpack-contrib/webpack-bundle-analyzer)
 <br />
+
+### 7.14. 주요 속성 4가지 리뷰 및 정리
+-	Entry 속성은 웹팩을 실행할 대상 파일. 진입점
+- Output 속성은 웹팩의 결과물에 대한 정보를 입력하는 속성. 일반적으로 filename과 path를 정의
+- Loader 속성은 CSS, 이미지와 같은 비 자바스크립트 파일을 웹팩이 인식할 수 있게 추가하는 속성.<br />로더는 오른쪽에서 왼쪽 순으로 적용
+- Plugin 속성은 웹팩으로 변환한 파일에 추가적인 기능을 더하고 싶을 때 사용하는 속성.<br />웹팩 변환 과정 전반에 대한 제어권을 갖고 있음<br />
+![7-14-1](./_images/7-14-1.png)<br />
+- 위 속성 이외에도 resolve, devServer, devtool 속성에 대해 알고 있으면 좋다
+	- resolve [[자세히 보기]](https://webpack.js.org/configuration/resolve/#root)
+	- devServer [[자세히 보기]](https://webpack.js.org/configuration/dev-server/#root)
+	- devtool [[자세히 보기]](https://webpack.js.org/configuration/devtool/#devtool)
+- 참고 - 주요 속성 리뷰 문서 [[자세히 보기]](https://joshua1988.github.io/webpack-guide/concepts/wrapup.html)<br />
+<br />
+
