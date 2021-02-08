@@ -1505,3 +1505,41 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 	npm run build
 	```
 	<br />
+
+### 8.4. HTMLWebpackPlugin 설명
+1. 웹팩 빌드 실행으로 적용된 script<br />
+	![8-4-1](./_images/8-4-1.png)<br />
+<br />
+
+2. [webpack.config.js] new HtmlWebpackPlugin() 으로만 등록을 할 경우,<br />dist 폴더 아래에 index.html 파일이 새로 생성이 된다.
+	```javascript
+	plugins: [
+	  new HtmlWebpackPlugin({}),
+	],
+	```
+<br />
+
+3. [webpack.config.js] <code>new HtmlWebpackPlugin({ template })</code> 속성을 추가하여 **프로젝트 루트 폴더의 index.html 파일에 적용**될 수 있게 한다.
+	```javascript
+	plugins: [
+	  new HtmlWebpackPlugin({
+	    // index.html 템플릿을 기반으로 빌드 결과물을 추가해줌
+	    template: 'index.html',
+	  }),
+	],
+	```
+<br />
+
+3. css, js 파일 등이 다수로 적용을 해야하거나 해쉬코드 등을 **일일이 입력을 해서 적용할 수가 없기 때문에 HtmlWebpackPlugin 플러그인을 이용**해야 한다.
+	- HtmlWebpackPlugin : **빌드 시 css, js 파일들을 자동으로 연결**해준다
+	```html
+	<link rel="stylesheet" href="./dist/main.css">
+	<!-- 해시코드 적용 -->
+	<link rel="stylesheet" href="./dist/main.$oidsf!22.css">
+	```
+	<br />
+
+4. HtmlWebpackPlugin() 옵션에 관한 것은 공식문서를 통해 옵션을 적용한다.
+	- HtmlWebpackPlugin [[자세히보기]](https://webpack.js.org/plugins/html-webpack-plugin/)
+
+5. HtmlWebpackPlugin 플러그인 외에 필요한 플러그인 경우, **공식문서를 통해 설치 및 사용법을 확인**한다.
