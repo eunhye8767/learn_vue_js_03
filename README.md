@@ -1390,4 +1390,84 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 - 웹팩의 빌드 대상 파일이 변경 되었을 때 **매번 웹팩 명령어를 실행하지 않아도 코드만 변경하고 저장하면 웹팩으로 빌드한 후 브라우저를 새로고침** 해준다.
 	- npm run build 명령어를 입력하지 않아도 자동 브라우저 새로고침이 가능
 - 매번 명령어를 치는 시간과 브라우저를 새로 고침하는 시간 뿐만 아니라 **웹팩 빌드 시간 또한 줄여주기 때문에 웹팩 기반의 웹 애플리케이션 개발에 필수**로 사용된다.
-- 웹팩 데브 서버 문서 [자세히 보기](https://joshua1988.github.io/webpack-guide/devtools/webpack-dev-server.html)
+- 웹팩 데브 서버 문서 [[자세히 보기]](https://joshua1988.github.io/webpack-guide/devtools/webpack-dev-server.html)
+<br />
+
+### 8.2. 웹팩 데브 서버 튜토리얼 실습
+- 웹팩 데브 서버 튜토리얼 [[자세히보기]](https://joshua1988.github.io/webpack-guide/tutorials/webpack-dev-server.html)
+<br />
+
+1. devserver 프로젝트 폴더를 생성하고 터미널로 연다.
+2. <code>npm init -y</code> 명령어를 입력하여 package.json 파일을 생성한다.
+3. 아래 명령어로 필요한 라이브러리를 설치한다.
+	```
+	npm i webpack webpack-cli webpack-dev-server html-webpack-plugin -D
+	```
+4. package.json 파일에서 아래와 같이 scripts 속성에 커스텀 명령어를 추가한다.
+	```javascript
+	// 이전버전
+	{
+	  // ...
+	  "scripts": {
+	    "dev": "webpack-dev-serve"
+	  },
+	}
+
+	// 업데이트 버전
+	{
+	  // ...
+	  "scripts": {
+	    "dev": "webpack serve"
+	  },
+	}
+	```
+5. 프로젝트 루트 레벨에 index.html 파일 생성 후 아래 내용을 추가
+	```html
+	<!DOCTYPE html>
+	<html>
+	  <head>
+	    <meta charset="utf-8">
+	    <title>Webpack Dev Server</title>
+	  </head>
+	  <body>
+	    <!-- 빌드 결과물이 정상적으로 로딩되면 아래 div 태그의 텍스트가 변경됨 -->
+	    <div class="container">
+	      TBD..
+	    </div>
+	    <!-- HTML Webpack Plugin에 의해 웹팩 빌드 내용이 아래에 추가됨 -->
+	  </body>
+	</html>
+	```
+6. 프로젝트 루트 레벨에 index.js 파일 생성 및 아래 내용을 추가
+	```javascript
+	var div = document.querySelector('.container');
+	div.innerText = 'Webpack loaded!!';
+	```
+7. 프로젝트 루트 레벨에 webpack.config.js 생성 후 아래 내용을 추가
+	- webpack.config.js 파일은 프로젝트 루트 폴더 바로 아래에 생성하거나 index.html와 같은 폴더 경로에 생성하는 것이 바람직하다!
+	```javascript
+	var path = require('path');
+	var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+	module.exports = {
+	  mode: 'none',
+	  entry: './index.js',
+	  output: {
+	    filename: 'bundle.js',
+	    path: path.resolve(__dirname, 'dist'),
+	  },
+	  devServer: {
+	    port: 9000,
+	  },
+	  plugins: [
+	    new HtmlWebpackPlugin({
+	      // index.html 템플릿을 기반으로 빌드 결과물을 추가해줌
+	      template: 'index.html',
+	    }),
+	  ],
+	};
+	```
+8. [터미널] <code>npm run dev</code> 명령어를 입력하여 빌드 실행
+	- port 번호가 9000으로 실행된 것을 확인할 수 있다<br />
+		![8-2-1](./_images/8-2-1.png)<br />
+<br />
