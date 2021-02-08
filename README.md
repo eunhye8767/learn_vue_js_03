@@ -1325,3 +1325,40 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 
 5. webpack - plugins(웹팩의 플러그인)이란 것은 **결과물에 대한 정보를 바꾸거나 변형해줘서 우리에게 제공**해준다.
 <br />
+
+### 7.13 Plugin
+- 플러그인(plugin)은 웹팩의 기본적인 동작에 추가적인 기능을 제공하는 속성이다.
+	- VS Code에서 확장 프로그램 라이브러리를 설치하여 이용하는 것과 동일하게 생각하면 된다.
+- 로더랑 비교하면 로더는 파일을 해석하고 변환하는 과정에 관여하는 반면, **플러그인은 해당 결과물의 형태를 바꾸는 역할**을 한다고 보면 된다.
+- 플러그인은 아래와 같이 선언한다.
+	```javascript
+	// webpack.config.js
+	module.exports = {
+	  plugins: []
+	}
+	```
+	<br />
+- **플러그인의 배열에는 생성자 함수로 생성한 객체 인스턴스만 추가**될 수 있다.
+- [예시 참고]
+	- HtmlWebpackPlugin [자세히보기](https://webpack.js.org/plugins/html-webpack-plugin/) :<br />웹팩으로 빌드한 결과물로 HTML 파일을 생성해주는 플러그인
+	- ProgressPlugin [자세히보기](https://webpack.js.org/plugins/progress-plugin/#root) :<br />웹팩의 빌드 진행율을 표시해주는 플러그인
+	```javascript
+	// webpack.config.js
+	var webpack = require('webpack');
+	var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+	module.exports = {
+	  plugins: [
+	    new HtmlWebpackPlugin(),
+	    new webpack.ProgressPlugin()
+	  ]
+	}
+	```
+	<br />
+
+#### 자주 사용하는 플러그인
+- [split-chunks-plugin](https://webpack.js.org/plugins/split-chunks-plugin/)
+- [clean-webpack-plugin](https://www.npmjs.com/package/clean-webpack-plugin)
+- [image-webpack-loader](https://github.com/tcoopman/image-webpack-loader)
+- [webpack-bundle-analyzer-plugin](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+<br />
