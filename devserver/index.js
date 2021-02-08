@@ -1,2 +1,2 @@
 var div = document.querySelector('.container');
-div.innerText = 'Webpack loaded!!';
+div.innerText = '웹팩 데브서버 돌렸음!';
