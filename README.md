@@ -1543,3 +1543,130 @@ filename 속성에 여러 가지 옵션을 넣을 수 있다.
 	- HtmlWebpackPlugin [[자세히보기]](https://webpack.js.org/plugins/html-webpack-plugin/)
 
 5. HtmlWebpackPlugin 플러그인 외에 필요한 플러그인 경우, **공식문서를 통해 설치 및 사용법을 확인**한다.
+<br />
+<br />
+<br />
+
+## 9. 실전 퀴즈
+### 9.1. 실전 퀴즈 풀이
+- <code>mode</code> webpack 4버전대부터 적용. 배포할 때엔 production
+- <code>entry</code> 웹팩으로 변환할 대상의 파일(= 진입점)
+- <code>output</code> 변환해서 결과물이 나올 결과 파일 정보
+	- <code>publicPath</code> 나중에 CDN 배포를 할 때 그 CDN 주소에 포함될 수 있겠끔 속성을 정의
+	<br />
+
+- <code>module</code> = loader 
+	- <code>test: /\.css$/</code> css-loader -> 특정 프레임워크와 연관된 로더 vue-style-loader 변환
+	- <code>test: /\.vue$/</code> .vue 확장 파일에 대한 vue-loader 
+	- <code>test: /\.js$/</code> babel-loader 변환
+		- <code>loader: 'babel-loader'</code> 자바스크립트의 최신 문법들을 여러 브라우저에서 호환할 수 있게 변환해주는데 이 기능 때문에 웹팩을 자주 사용하기도 한다.
+		- <code>exclude: /node_modules/ </code> 프로젝트 내부에서 모든 자바스크립트 대상으로 작업을 하는데 node_modules 폴더는 라이브러리와 관련이 있기 때문에 본 폴더에 있는 라이브러리는 배제한다는 의미.
+	- <code>test: /\.(png|jpg|gif|svg)$/</code> 이미지 속성을 'file-loader'을 이용해서 'options'까지 적용
+	<br />
+
+- <code>resolve</code> 웹팩으로 파일을 해석해 나갈 때(어떤 파일이 어떤 파일과 연관이 있는 지) - 파일의 해석 방식을 정의
+	- <code>alias</code> 'vue$'로 하는 것은 'vue/dist/vue.esm.js' 로 해석하겠다는 의미
+	- <code>extensions</code> .js, .vue 를 붙이지 않아도 해석해주겠다는 의미
+		- <code>import {} from './math'</code> ./math.js 파일인데 ./math만 써도 해석하겠다는 의미.
+	<br />
+
+- <code>performance</code> 성능 관련(크게 신경쓰지 않아도 된다)
+	- 결과물에 어떤 사이즈가 초과가 되면 웹팩에서 제안한 파일 사이즈 크기가 있는데 초과가 되면 워닝
+	<br />
+
+- <code>devtool: '#eval-source-map'</code>
+	- 'source-map'에는 여러가지 종류가 있다.
+	- '#eval-source-map' : 빌드된 파일과 빌드된 파일에서 실제 파일과 연결해주는 어떤 링크를 제공
+<br />
+
+```javascript
+var path = require('path')
+var webpack = require('webpack')
+
+module.exports = {
+  mode: 'production',
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    publicPath: '/dist/',
+    filename: 'build.js'
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          'vue-style-loader',
+          'css-loader'
+        ],
+      },      
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
+        options: {
+          loaders: {
+          }
+          // other vue-loader options go here
+        }
+      },
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(png|jpg|gif|svg)$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[ext]?[hash]'
+        }
+      }
+    ]
+  },
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.esm.js'
+    },
+    extensions: ['*', '.js', '.vue', '.json']
+  },
+  devServer: {
+    historyApiFallback: true,
+    noInfo: true,
+    overlay: true
+  },
+  performance: {
+    hints: false
+  },
+  devtool: '#eval-source-map'
+}
+```
+<br />
+
+- <code>process.env.NODE_ENV === 'production'</code>
+	- node 환경 변수를 production 일 때
+	- <code>npm run build</code> production 모드로 빌드가 실행될 때
+- production 으로 배포를 할 때 if문에 적용된 것들을 추가로 적용하겠다는 의미.
+	- if문 아래에 있는 코드는 웹팩 3버전이하의 코드
+	- **웹팩 4버전 이후로는 아래 코드를 작성할 필요가 없다. mode:'production' 으로 적용하면 된다.**
+```javascript
+if (process.env.NODE_ENV === 'production') {
+  module.exports.devtool = '#source-map'
+  // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ])
+}
+```
